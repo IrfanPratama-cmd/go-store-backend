@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"api/app/model"
 	"regexp"
 	"time"
 
@@ -56,23 +55,23 @@ func ClaimsJWT(accesToken *string) (jwt.MapClaims, error) {
 }
 
 // GetXUserID provide user id from the authentication token
-func GetXUserID(c *fiber.Ctx) *uuid.UUID {
-	authData, ok := c.Locals("auth").(model.ResponseAuthenticate)
-	if ok && authData.UserID != nil {
-		return StringToUUID(*authData.UserID)
-	}
-	return nil
-}
+// func GetXUserID(c *fiber.Ctx) *uuid.UUID {
+// 	authData, ok := c.Locals("auth").(model.ResponseAuthenticate)
+// 	if ok && authData.UserID != nil {
+// 		return StringToUUID(*authData.UserID)
+// 	}
+// 	return nil
+// }
 
-// GetXBusinessID retrieves the business ID from the authentication token
-func GetXBusinessID(c *fiber.Ctx) *uuid.UUID {
-	authData, ok := c.Locals("auth").(model.ResponseAuthenticate)
-	if ok && authData.Access != nil {
-		claims, _ := ClaimsJWT(authData.Access)
-		businessIDStr, _ := claims["business_id"].(string)
-		businessID, _ := uuid.Parse(businessIDStr)
-		return &businessID
+func GetXUserID(c *fiber.Ctx) *uuid.UUID {
+	userID := c.Locals("userID")
+	id := userID.(string)
+	if id != "" {
+		if current, err := uuid.Parse(id); nil == err {
+			return &current
+		}
 	}
+
 	return nil
 }
 

@@ -9,10 +9,12 @@ type Contact struct {
 	Base
 	DataOwner
 	ContactAPI
+	User *User `json:"user,omitempty" gorm:"foreignKey:UserID;references:ID"`
 }
 
 // ContactAPI Contact API
 type ContactAPI struct {
+	UserID          *uuid.UUID `json:"user_id,omitempty" swaggertype:"string" format:"uuid"`
 	ContactName     *string    `json:"contact_name,omitempty" example:"Walk-in-customers" gorm:"type:varchar(191);not null" validate:"required"`                                               // Contact Name                                                                                // Type
 	Mobile          *string    `json:"mobile,omitempty" example:"08123456789" gorm:"type:varchar(191)"`                                                                                        // Mobile
 	AlternateNumber *string    `json:"alternate_number,omitempty" example:"08123456789" gorm:"type:varchar(191)"`                                                                              // Alternate Number
