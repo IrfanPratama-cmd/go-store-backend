@@ -9,7 +9,7 @@ import (
 )
 
 func PutCart(c *fiber.Ctx) error {
-	api := new(model.CartAPI)
+	api := new(model.CartUpdate)
 
 	if err := c.BodyParser(&api); err != nil {
 		return c.Status(400).JSON(fiber.Map{

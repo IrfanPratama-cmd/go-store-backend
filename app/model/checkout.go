@@ -5,8 +5,8 @@ import "github.com/google/uuid"
 type Checkout struct {
 	Base
 	CheckoutAPI
-	Contact    *Contact    `json:"contact,omitempty" gorm:"foreignKey:ContactID;references:ID"`
-	Transacion *Transacion `json:"transaction,omitempty" gorm:"foreignKey:TransactionID;references:ID"`
+	Contact     *Contact     `json:"contact,omitempty" gorm:"foreignKey:ContactID;references:ID"`
+	Transaction *Transaction `json:"transaction,omitempty" gorm:"foreignKey:TransactionID;references:ID"`
 }
 
 type CheckoutAPI struct {
@@ -15,4 +15,5 @@ type CheckoutAPI struct {
 	TransactionID *uuid.UUID `json:"transaction_id,omitempty" gorm:"type:varchar(36);index" format:"uuid"`
 	Qty           *int       `json:"qty,omitempty"`
 	Amount        *float64   `json:"amount,omitempty"`
+	TotalAmount   *float64   `json:"total_amount,omitempty"`
 }

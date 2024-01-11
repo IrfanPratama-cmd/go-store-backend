@@ -13,5 +13,6 @@ var ModelMigrations = []interface{}{
 	&model.ProductAsset{},
 	&model.Checkout{},
 	&model.Cart{},
-	&model.Transacion{},
+	&model.Transaction{},
+	&model.Payment{},
 }

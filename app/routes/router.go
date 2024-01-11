@@ -6,7 +6,9 @@ import (
 	"api/app/controller/brand"
 	"api/app/controller/cart"
 	"api/app/controller/category"
+	"api/app/controller/checkout"
 	"api/app/controller/product"
+	"api/app/controller/transaction"
 
 	// "api/app/controller/profile"
 	"api/app/lib"
@@ -38,7 +40,6 @@ func Handle(app *fiber.App) {
 
 	// Account
 	accountRoute := api.Group("/account")
-	// accountRoute.Use(middleware.TokenValidator())
 	accountRoute.Post("/login", account.PostLoginAccount)
 	accountRoute.Post("/register", account.PostRegisterAccount)
 	accountRoute.Post("/verify-account", account.PostVerifyAccount)
@@ -79,9 +80,16 @@ func Handle(app *fiber.App) {
 	cartRoute.Put("/:id", cart.PutCart)
 	cartRoute.Delete("/:id", cart.DeleteCart)
 
-	// // Profile
-	// profileRoute := api.Group("/profile")
-	// profileRoute.Use(middleware.Oauth2Authentication)
-	// profileRoute.Get("/", profile.GetProfile)
-	// profileRoute.Put("/", profile.PutProfile)
+	// Checkout
+	checkoutRoute := api.Group("/checkouts")
+	checkoutRoute.Use(middleware.JwtMiddleware)
+	// checkoutRoute.Get("/", cart.GetCart)
+	checkoutRoute.Post("/", checkout.PostCheckout)
+
+	// Transaction
+	transactionRoute := api.Group("/transactions")
+	transactionRoute.Use(middleware.JwtMiddleware)
+	// transactionRoute.Get("/", cart.GetCart)
+	transactionRoute.Post("/:transaction_id", transaction.PostTransaction)
+	transactionRoute.Post("/payment-webhook", transaction.Webhook)
 }

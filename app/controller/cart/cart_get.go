@@ -14,8 +14,10 @@ func GetCart(c *fiber.Ctx) error {
 	pg := paginate.New()
 
 	userID := lib.GetXUserID(c)
+	var contact model.Contact
+	db.Model(&contact).Where("user_id", userID).First(&contact)
 
-	mod := db.Model(&model.Cart{}).Preload("Product").Where("user_id = ?", userID)
+	mod := db.Model(&model.Cart{}).Preload("Product").Preload("Product.ProductAsset").Where("contact_id = ?", contact.ID)
 
 	page := pg.With(mod).Request(c.Request()).Response(&[]model.Cart{})
 

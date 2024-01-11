@@ -29,6 +29,7 @@ require (
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
 	github.com/mattn/go-sqlite3 v1.14.18 // indirect
+	github.com/midtrans/midtrans-go v1.3.7 // indirect
 	github.com/morkid/gocache v1.0.0
 	github.com/morkid/gocache-redis/v8 v8.0.2
 	github.com/morkid/paginate v1.1.7
@@ -40,6 +41,7 @@ require (
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
+	github.com/xendit/xendit-go v1.0.25
 	go.mongodb.org/mongo-driver v1.13.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect

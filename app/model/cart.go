@@ -14,3 +14,12 @@ type CartAPI struct {
 	ProductID *uuid.UUID `json:"product_id,omitempty" gorm:"type:varchar(36);index" format:"uuid"`
 	Qty       *int       `json:"qty,omitempty"`
 }
+
+type CartRequest struct {
+	ProductID *uuid.UUID `json:"product_id,omitempty" gorm:"type:varchar(36);index" format:"uuid"`
+	Qty       *int       `json:"qty,omitempty"`
+}
+
+type CartUpdate struct {
+	Qty *int `json:"qty,omitempty"`
+}

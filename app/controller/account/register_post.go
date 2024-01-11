@@ -60,12 +60,6 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 		},
 	}
 
-	// Define model
-	var contact model.Contact
-	contact.ContactName = api.Fullname
-	contact.Email = api.Email
-	db.Create(&contact)
-
 	var passwordHash string
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -79,6 +73,12 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 	if err := db.Save(user).Error; err != nil {
 		return lib.ErrorInternal(c, err.Error())
 	}
+
+	var contact model.Contact
+	contact.ContactName = api.Fullname
+	contact.Email = api.Email
+	contact.UserID = user.ID
+	db.Create(&contact)
 
 	return lib.OK(c)
 }

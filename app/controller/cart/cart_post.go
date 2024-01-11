@@ -9,7 +9,7 @@ import (
 )
 
 func PostCart(c *fiber.Ctx) error {
-	var cartAPI model.CartAPI
+	var cartAPI model.CartRequest
 
 	db := services.DB
 

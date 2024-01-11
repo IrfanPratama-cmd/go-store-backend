@@ -15,7 +15,6 @@ func GetProductID(c *fiber.Ctx) error {
 	result := db.Model(&product).
 		Select(`products.id, products.created_at, products.updated_at, 
 				products.product_name, products.description, products.price, products.quantity,
-				products.thumbnail,
 				c.id "Category__id",
 				c.category_name "Category__category_name",
 				c.category_code "Category__category_code",
