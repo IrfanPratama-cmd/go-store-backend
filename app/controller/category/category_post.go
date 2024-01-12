@@ -8,6 +8,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// PostCategory godoc
+// @Summary Create new Category
+// @Description Create new Category
+// @Param data body model.CategoryAPI true "Category data"
+// @Accept  application/json
+// @Produce application/json
+// @Success 201 {object} model.Category "Category data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 409 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /categories [post]
+// @Tags Category
 func PostCategory(c *fiber.Ctx) error {
 	var categoryAPI model.CategoryAPI
 

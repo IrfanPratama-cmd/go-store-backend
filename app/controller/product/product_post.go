@@ -12,6 +12,21 @@ import (
 	"github.com/google/uuid"
 )
 
+// PostProduct godoc
+// @Summary Create new Product
+// @Description Create new Product
+// @Param data body model.ProductRequest true "Product data"
+// @Accept  application/json
+// @Produce application/json
+// @Success 201 {object} model.Product "Product data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 409 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /products [post]
+// @Tags Product
 func PostProduct(c *fiber.Ctx) error {
 	var productAPI model.ProductRequest
 

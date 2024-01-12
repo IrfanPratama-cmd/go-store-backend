@@ -9,6 +9,22 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// PutProduct godoc
+// @Summary Update Product by id
+// @Description Update Product by id
+// @Param id path string true "Product ID"
+// @Param data body model.ProductAPI true "Product data"
+// @Accept  application/json
+// @Produce application/json
+// @Success 200 {object} model.Product "Product data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 409 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /products/{id} [put]
+// @Tags Product
 func PutProduct(c *fiber.Ctx) error {
 	var productAPI model.ProductAPI
 	if err := c.BodyParser(&productAPI); err != nil {

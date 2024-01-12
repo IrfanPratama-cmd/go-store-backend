@@ -42,6 +42,7 @@ require (
 	github.com/swaggo/swag v1.16.2 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/xendit/xendit-go v1.0.25
+	github.com/xendit/xendit-go/v4 v4.1.0 // indirect
 	go.mongodb.org/mongo-driver v1.13.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect

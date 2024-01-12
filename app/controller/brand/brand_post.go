@@ -8,6 +8,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// PostBrand godoc
+// @Summary Create new Brand
+// @Description Create new Brand
+// @Param data body model.BrandAPI true "Brand data"
+// @Accept  application/json
+// @Produce application/json
+// @Success 201 {object} model.Brand "Brand data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 409 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /brands [post]
+// @Tags Brand
 func PostBrand(c *fiber.Ctx) error {
 	var brandAPI model.BrandAPI
 

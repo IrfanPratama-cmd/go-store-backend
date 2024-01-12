@@ -1,4 +1,4 @@
-package cart
+package transaction
 
 import (
 	"api/app/lib"
@@ -9,9 +9,9 @@ import (
 	"github.com/morkid/paginate"
 )
 
-// GetCart godoc
-// @Summary List of Cart
-// @Description List of Cart
+// GetTransaction godoc
+// @Summary List of Transaction
+// @Description List of Transaction
 // @Param page query int false "Page number start from zero"
 // @Param size query int false "Size per page, default `0`"
 // @Param sort query string false "Sort by field, adding dash (`-`) at the beginning means descending and vice versa"
@@ -19,15 +19,15 @@ import (
 // @Param filters query string false "custom filters, see [more details](https://github.com/morkid/paginate#filter-format)"
 // @Accept  application/json
 // @Produce application/json
-// @Success 200 {object} lib.Page{items=[]model.Cart} "List of Cart"
+// @Success 200 {object} lib.Page{items=[]model.Transaction} "List of Transaction"
 // @Failure 400 {object} lib.Response
 // @Failure 404 {object} lib.Response
 // @Failure 500 {object} lib.Response
 // @Failure default {object} lib.Response
 // @Security ApiKeyAuth
-// @Router /carts [get]
-// @Tags Cart
-func GetCart(c *fiber.Ctx) error {
+// @Router /transactions [get]
+// @Tags Transaction
+func GetTransaction(c *fiber.Ctx) error {
 	db := services.DB
 	pg := paginate.New()
 
@@ -35,10 +35,10 @@ func GetCart(c *fiber.Ctx) error {
 	var contact model.Contact
 	db.Model(&contact).Where("user_id", userID).First(&contact)
 
-	mod := db.Model(&model.Cart{}).Preload("Product").Preload("Product.ProductAsset").Where("contact_id = ?", contact.ID)
+	var transaction model.Transaction
 
-	page := pg.With(mod).Request(c.Request()).Response(&[]model.Cart{})
+	mod := db.Model(&transaction).Where(`transactions.contact_id = ?`, contact.ID)
 
-	return lib.OK(c, page)
-
+	page := pg.With(mod).Request(c.Request()).Response(&[]model.Transaction{})
+	return c.Status(200).JSON(page)
 }

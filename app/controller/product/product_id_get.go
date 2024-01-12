@@ -7,6 +7,20 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// GetProductID godoc
+// @Summary Get a Product by id
+// @Description Get a Product by id
+// @Param id path string true "Product ID"
+// @Accept  application/json
+// @Produce application/json
+// @Success 200 {object} model.Product "Product data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /products/{id} [get]
+// @Tags Product
 func GetProductID(c *fiber.Ctx) error {
 	id := c.Params("id")
 	db := services.DB

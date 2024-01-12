@@ -10,6 +10,20 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// PostCheckout godoc
+// @Summary Create new Checkout
+// @Description Create new Checkout
+// @Accept  application/json
+// @Produce application/json
+// @Success 201 {object} model.Transaction "Checkout data"
+// @Failure 400 {object} lib.Response
+// @Failure 404 {object} lib.Response
+// @Failure 409 {object} lib.Response
+// @Failure 500 {object} lib.Response
+// @Failure default {object} lib.Response
+// @Security ApiKeyAuth
+// @Router /checkouts [post]
+// @Tags Checkout
 func PostCheckout(c *fiber.Ctx) error {
 	db := services.DB
 
@@ -52,6 +66,8 @@ func PostCheckout(c *fiber.Ctx) error {
 	transaction.InvoiceNo = &invoiceNo
 	transaction.ContactID = contact.ID
 	db.Create(&transaction)
+
+	db.Delete(&cart)
 
 	return lib.Created(c, transaction)
 }

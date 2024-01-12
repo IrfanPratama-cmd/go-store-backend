@@ -33,8 +33,12 @@ func Handle(app *fiber.App) {
 
 	api := app.Group(viper.GetString("ENDPOINT"))
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{"message": "hello world"})
+	})
+
 	api.Static("/swagger", "docs/swagger.json")
-	api.Get("/", controller.GetAPIIndex)
+	// api.Get("/", controller.GetAPIIndex)
 	api.Get("/info.json", controller.GetAPIInfo)
 	api.Post("/logs", controller.PostLogs)
 
@@ -89,7 +93,9 @@ func Handle(app *fiber.App) {
 	// Transaction
 	transactionRoute := api.Group("/transactions")
 	transactionRoute.Use(middleware.JwtMiddleware)
-	// transactionRoute.Get("/", cart.GetCart)
+	transactionRoute.Get("/", transaction.GetTransaction)
+	transactionRoute.Get("/:id", transaction.GetTransactionID)
 	transactionRoute.Post("/:transaction_id", transaction.PostTransaction)
-	transactionRoute.Post("/payment-webhook", transaction.Webhook)
+
+	app.Post("/xendit-webhook", transaction.XenditWebhookHandler)
 }

@@ -15,3 +15,7 @@ type PaymentAPI struct {
 type PaymentRequest struct {
 	Amount float64 `json:"amount,omitempty"`
 }
+
+type PaymentLinkResponse struct {
+	CheckoutLink string `json:"checkout_link,omitempty" example:"https://checkout-staging.xendit.co/latest/65a0eaaa63346762f641c28a" `
+}
