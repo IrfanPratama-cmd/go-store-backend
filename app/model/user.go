@@ -14,7 +14,7 @@ type User struct {
 	Base
 	DataOwner
 	UserAPI
-	Asset    *Asset    `json:"asset" gorm:"foreignkey:AssetID"`
+	Asset *Asset `json:"asset" gorm:"foreignkey:AssetID"`
 }
 
 // UserAPI model
@@ -69,22 +69,22 @@ type UserData struct {
 	Password *string `json:"password" example:"password"  gorm:"not null"`
 }
 
-type UpdateProfile struct {                             
-	AssetID            *uuid.UUID   `json:"asset_id,omitempty" swaggertype:"string" format:"uuid"`                                                  // Asset ID
-	EmployeeCode       *string      `json:"employee_code,omitempty" example:"EMP-000001" gorm:"type:varchar(191);not null"`                         // Employee Code
-	FirstName          *string      `json:"first_name,omitempty" example:"John" gorm:"type:varchar(191);not null"`                                  // First Name
-	MiddleName         *string      `json:"middle_name,omitempty" example:"Robert" gorm:"type:varchar(191)"`                                        // Middle Name
-	LastName           *string      `json:"last_name,omitempty" example:"Doe" gorm:"type:varchar(191)"`                                             // Last Name
-	Gender             *string      `json:"gender,omitempty" example:"male" gorm:"type:varchar(191)"`                                               // Gender (e.g : 'male','female','rather_not_say')
-	MaritalStatus      *string      `json:"marital_status,omitempty" example:"married" gorm:"type:varchar(191)"`                                    // Marital Status (e.g : 'married','unmarried','divorced')
-	DateOfBirth        *strfmt.Date `json:"date_of_birth,omitempty" format:"date" swaggertype:"string" gorm:"type:date"`                            // Date Of Birth
-	Mobile             *string      `json:"mobile,omitempty" example:"08123456789" gorm:"type:varchar(191)" validate:"omitempty,phone"`             // Mobile
-	AlternateNumber    *string      `json:"alternate_number,omitempty" example:"08123456789" gorm:"type:varchar(191)" validate:"omitempty,phone"`   // Alternate Number
-	Email              *string      `json:"email,omitempty" example:"walk-in-customer@mail.com" gorm:"type:varchar(191)" validate:"required,email"` // Email
-	ProvinceID         *uuid.UUID   `json:"province_id,omitempty" swaggertype:"string" format:"uuid"`                                               // Province ID
-	CityID             *uuid.UUID   `json:"city_id,omitempty" swaggertype:"string" format:"uuid"`                                                   // City ID
-	SubdistrictID      *uuid.UUID   `json:"subdistrict_id,omitempty" swaggertype:"string" format:"uuid"`                                            // Subdistrict ID
-	Address            *string      `json:"address,omitempty" example:"Surakarta" gorm:"type:varchar(255)"`                                         // Address
-	ZipCode            *string      `json:"zip_code,omitempty" example:"57422" gorm:"type:varchar(255)"`                                            // Zip Code
-	User               *UserData    `json:"user,omitempty" gorm:"foreignKey:EmployeeID"`
+type UpdateProfile struct {
+	AssetID         *uuid.UUID   `json:"asset_id,omitempty" swaggertype:"string" format:"uuid"`                                                  // Asset ID
+	EmployeeCode    *string      `json:"employee_code,omitempty" example:"EMP-000001" gorm:"type:varchar(191);not null"`                         // Employee Code
+	FirstName       *string      `json:"first_name,omitempty" example:"John" gorm:"type:varchar(191);not null"`                                  // First Name
+	MiddleName      *string      `json:"middle_name,omitempty" example:"Robert" gorm:"type:varchar(191)"`                                        // Middle Name
+	LastName        *string      `json:"last_name,omitempty" example:"Doe" gorm:"type:varchar(191)"`                                             // Last Name
+	Gender          *string      `json:"gender,omitempty" example:"male" gorm:"type:varchar(191)"`                                               // Gender (e.g : 'male','female','rather_not_say')
+	MaritalStatus   *string      `json:"marital_status,omitempty" example:"married" gorm:"type:varchar(191)"`                                    // Marital Status (e.g : 'married','unmarried','divorced')
+	DateOfBirth     *strfmt.Date `json:"date_of_birth,omitempty" format:"date" swaggertype:"string" gorm:"type:date"`                            // Date Of Birth
+	Mobile          *string      `json:"mobile,omitempty" example:"08123456789" gorm:"type:varchar(191)" validate:"omitempty,phone"`             // Mobile
+	AlternateNumber *string      `json:"alternate_number,omitempty" example:"08123456789" gorm:"type:varchar(191)" validate:"omitempty,phone"`   // Alternate Number
+	Email           *string      `json:"email,omitempty" example:"walk-in-customer@mail.com" gorm:"type:varchar(191)" validate:"required,email"` // Email
+	ProvinceID      *uuid.UUID   `json:"province_id,omitempty" swaggertype:"string" format:"uuid"`                                               // Province ID
+	CityID          *uuid.UUID   `json:"city_id,omitempty" swaggertype:"string" format:"uuid"`                                                   // City ID
+	SubdistrictID   *uuid.UUID   `json:"subdistrict_id,omitempty" swaggertype:"string" format:"uuid"`                                            // Subdistrict ID
+	Address         *string      `json:"address,omitempty" example:"Surakarta" gorm:"type:varchar(255)"`                                         // Address
+	ZipCode         *string      `json:"zip_code,omitempty" example:"57422" gorm:"type:varchar(255)"`                                            // Zip Code
+	User            *UserData    `json:"user,omitempty" gorm:"foreignKey:EmployeeID"`
 }

@@ -7,6 +7,7 @@ import (
 	"api/app/controller/cart"
 	"api/app/controller/category"
 	"api/app/controller/checkout"
+	"api/app/controller/contact"
 	"api/app/controller/product"
 	"api/app/controller/transaction"
 
@@ -49,6 +50,12 @@ func Handle(app *fiber.App) {
 	accountRoute.Post("/verify-account", account.PostVerifyAccount)
 	accountRoute.Post("/send-verify-account-code", account.PostSendVerifyAccountCode)
 
+	// Contact
+	contactRoute := api.Group("/contacts")
+	contactRoute.Use(middleware.JwtMiddleware)
+	contactRoute.Get("/", contact.GetContact)
+	contactRoute.Put("/", contact.PutContact)
+
 	// Brand
 	brandRoute := api.Group("/brands")
 	brandRoute.Use(middleware.JwtMiddleware)
@@ -87,7 +94,6 @@ func Handle(app *fiber.App) {
 	// Checkout
 	checkoutRoute := api.Group("/checkouts")
 	checkoutRoute.Use(middleware.JwtMiddleware)
-	// checkoutRoute.Get("/", cart.GetCart)
 	checkoutRoute.Post("/", checkout.PostCheckout)
 
 	// Transaction

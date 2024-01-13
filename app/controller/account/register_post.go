@@ -4,6 +4,9 @@ import (
 	"api/app/lib"
 	"api/app/model"
 	"api/app/services"
+	"fmt"
+	"net/mail"
+	"net/smtp"
 	"sync"
 	"time"
 
@@ -34,7 +37,7 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 	db := services.DB.WithContext(c.UserContext())
 
 	// Generate unique verification code
-	verificationCode := lib.RandomNumber(4)
+	verificationCode := lib.RandomNumber(6)
 
 	// Set verification expiration time
 	verificationExpiration := time.Now().Add(5 * time.Minute)
@@ -74,6 +77,8 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 		return lib.ErrorInternal(c, err.Error())
 	}
 
+	sendVerificationEmail(*api.Email, verificationCode)
+
 	var contact model.Contact
 	contact.ContactName = api.Fullname
 	contact.Email = api.Email
@@ -81,4 +86,21 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 	db.Create(&contact)
 
 	return lib.OK(c)
+}
+
+func sendVerificationEmail(toEmail, verificationCode string) {
+	from := mail.Address{"Developer Irfan", "blckdayment@gmail.com"}
+	to := mail.Address{"Recipient Name", toEmail}
+	subject := "Email Verification"
+
+	body := fmt.Sprintf("Your verification code is: %s", verificationCode)
+
+	message := "From: " + from.String() + "\r\n" +
+		"To: " + to.String() + "\r\n" +
+		"Subject: " + subject + "\r\n\r\n" +
+		body
+
+	auth := smtp.PlainAuth("", "blckdayment@gmail.com", "dfbnvjlbwowjjaxp", "smtp.gmail.com")
+
+	smtp.SendMail("smtp.gmail.com:587", auth, "blckdayment@gmail.com", []string{to.Address}, []byte(message))
 }

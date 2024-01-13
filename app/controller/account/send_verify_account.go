@@ -39,7 +39,7 @@ func PostSendVerifyAccountCode(c *fiber.Ctx) error {
 	}
 
 	// Generate unique verification code
-	verificationCode := lib.RandomNumber(4)
+	verificationCode := lib.RandomNumber(6)
 
 	// Set verification expiration time
 	verificationExpiration := time.Now().Add(5 * time.Minute)
@@ -52,6 +52,8 @@ func PostSendVerifyAccountCode(c *fiber.Ctx) error {
 	if err := db.Save(user).Error; err != nil {
 		return lib.ErrorInternal(c, err.Error())
 	}
+
+	sendVerificationEmail(*api.Email, verificationCode)
 
 	return lib.OK(c)
 }

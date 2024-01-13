@@ -248,6 +248,52 @@ definitions:
     required:
     - contact_name
     type: object
+  model.ContactRequest:
+    properties:
+      address:
+        description: Address
+        example: Jl. Aria Putra No.88, RT.09/RW.01, Sawah Baru, Kec. Ciputat, Kota
+          Tangerang Selatan, Banten 15414
+        type: string
+      alternate_number:
+        description: Alternate Number
+        example: "08123456789"
+        type: string
+      city_id:
+        description: City ID
+        format: uuid
+        type: string
+      contact_name:
+        description: Contact Name                                                                                //
+          Type
+        example: Walk-in-customers
+        type: string
+      email:
+        description: Email
+        example: walk-in-customer@mail.com
+        type: string
+      mobile:
+        description: Mobile
+        example: "08123456789"
+        type: string
+      province_id:
+        description: Province ID
+        format: uuid
+        type: string
+      subdistrict_id:
+        description: Subdistrict ID
+        format: uuid
+        type: string
+      website:
+        description: Website
+        example: www.walk-in-customer.com
+        type: string
+      zip_code:
+        example: "15414"
+        type: string
+    required:
+    - contact_name
+    type: object
   model.LoginAPI:
     properties:
       password:
@@ -523,6 +569,7 @@ definitions:
     - email
     - verification_code
     type: object
+host: apiumkm.kitadigi.com
 info:
   description: API Documentation
   title: GO Simple Store
@@ -1436,6 +1483,112 @@ paths:
       summary: Create new Checkout
       tags:
       - Checkout
+  /contacts:
+    get:
+      consumes:
+      - application/json
+      description: List of Contact
+      parameters:
+      - description: Page number start from zero
+        in: query
+        name: page
+        type: integer
+      - description: Size per page, default `0`
+        in: query
+        name: size
+        type: integer
+      - description: Sort by field, adding dash (`-`) at the beginning means descending
+          and vice versa
+        in: query
+        name: sort
+        type: string
+      - description: Select specific fields with comma separated
+        in: query
+        name: fields
+        type: string
+      - description: custom filters, see [more details](https://github.com/morkid/paginate#filter-format)
+        in: query
+        name: filters
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Contact
+          schema:
+            allOf:
+            - $ref: '#/definitions/lib.Page'
+            - properties:
+                items:
+                  items:
+                    $ref: '#/definitions/model.Contact'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/lib.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/lib.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/lib.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/lib.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: List of Contact
+      tags:
+      - Contact
+  /contacts/:
+    put:
+      consumes:
+      - application/json
+      description: Update Contact by user id
+      parameters:
+      - description: Contact data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/model.ContactRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Contact data
+          schema:
+            $ref: '#/definitions/model.Contact'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/lib.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/lib.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/lib.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/lib.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/lib.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Contact by user id
+      tags:
+      - Contact
   /info.json:
     get:
       consumes:

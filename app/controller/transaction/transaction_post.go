@@ -6,6 +6,7 @@ import (
 	"api/app/services"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 	"github.com/xendit/xendit-go"
 	"github.com/xendit/xendit-go/invoice"
 )
@@ -27,7 +28,8 @@ import (
 // @Tags Transaction
 func PostTransaction(c *fiber.Ctx) error {
 	// Inisialisasi library Xendit dan set API Key
-	xendit.Opt.SecretKey = "xnd_development_CggMcaq5OxL4UuTU3iHobjHOBOP515vInD8bG0tc9oztmhxFzfLa5AUtCfUa5g"
+	// xendit.Opt.SecretKey = "xnd_development_CggMcaq5OxL4UuTU3iHobjHOBOP515vInD8bG0tc9oztmhxFzfLa5AUtCfUa5g"
+	xendit.Opt.SecretKey = viper.GetString("XENDIT_API_KEY")
 
 	db := services.DB
 

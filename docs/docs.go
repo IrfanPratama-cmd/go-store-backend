@@ -10,11 +10,6 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://dospecs.monstercode.net/en/guide/tnc.html",
-        "contact": {
-            "name": "Dikhi Martin",
-            "email": "dikhi@tog.co.id"
-        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -1440,6 +1435,174 @@ const docTemplate = `{
                 }
             }
         },
+        "/contacts": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List of Contact",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "List of Contact",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number start from zero",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Size per page, default ` + "`" + `0` + "`" + `",
+                        "name": "size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort by field, adding dash (` + "`" + `-` + "`" + `) at the beginning means descending and vice versa",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Select specific fields with comma separated",
+                        "name": "fields",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "custom filters, see [more details](https://github.com/morkid/paginate#filter-format)",
+                        "name": "filters",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Contact",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/lib.Page"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.Contact"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update Contact by user id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Update Contact by user id",
+                "parameters": [
+                    {
+                        "description": "Contact data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact data",
+                        "schema": {
+                            "$ref": "#/definitions/model.Contact"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/lib.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/info.json": {
             "get": {
                 "description": "show info response",
@@ -2418,6 +2581,63 @@ const docTemplate = `{
                 }
             }
         },
+        "model.ContactRequest": {
+            "type": "object",
+            "required": [
+                "contact_name"
+            ],
+            "properties": {
+                "address": {
+                    "description": "Address",
+                    "type": "string",
+                    "example": "Jl. Aria Putra No.88, RT.09/RW.01, Sawah Baru, Kec. Ciputat, Kota Tangerang Selatan, Banten 15414"
+                },
+                "alternate_number": {
+                    "description": "Alternate Number",
+                    "type": "string",
+                    "example": "08123456789"
+                },
+                "city_id": {
+                    "description": "City ID",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "contact_name": {
+                    "description": "Contact Name                                                                                // Type",
+                    "type": "string",
+                    "example": "Walk-in-customers"
+                },
+                "email": {
+                    "description": "Email",
+                    "type": "string",
+                    "example": "walk-in-customer@mail.com"
+                },
+                "mobile": {
+                    "description": "Mobile",
+                    "type": "string",
+                    "example": "08123456789"
+                },
+                "province_id": {
+                    "description": "Province ID",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "subdistrict_id": {
+                    "description": "Subdistrict ID",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "website": {
+                    "description": "Website",
+                    "type": "string",
+                    "example": "www.walk-in-customer.com"
+                },
+                "zip_code": {
+                    "type": "string",
+                    "example": "15414"
+                }
+            }
+        },
         "model.LoginAPI": {
             "type": "object",
             "required": [
@@ -2823,10 +3043,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "apiumkm.kitadigi.com",
-	BasePath:         "/api/v1/user",
+	BasePath:         "/api/v1/",
 	Schemes:          []string{"https"},
-	Title:            "User Services",
+	Title:            "Go Simple Store",
 	Description:      "API Documentation",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
