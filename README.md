@@ -155,3 +155,8 @@ docker-compose up -d
 docker-compose exec go go run .
 ```
 
+## Run Unit Test in Specific Folder
+
+```
+docker-compose exec go go test -v -coverprofile cover.txt ./app/controller/brand
+```
