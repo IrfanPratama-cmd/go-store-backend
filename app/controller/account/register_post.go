@@ -90,7 +90,7 @@ func PostRegisterAccount(c *fiber.Ctx) error {
 
 func sendVerificationEmail(toEmail, verificationCode string) {
 	from := mail.Address{"Developer Irfan", "blckdayment@gmail.com"}
-	to := mail.Address{"Recipient Name", toEmail}
+	to := mail.Address{"Recipient Name", toEmail}	
 	subject := "Email Verification"
 
 	body := fmt.Sprintf("Your verification code is: %s", verificationCode)

@@ -21,11 +21,10 @@ func init() {
 // @version 1.0.0
 // @description API Documentation
 // @termsOfService https://dospecs.monstercode.net/en/guide/tnc.html
-// @contact.name Dikhi Martin
-// @contact.email dikhi@tog.co.id
-// @host apiumkm.kitadigi.com
+// @contact.name Irfan Pratama
+// @contact.email erfanpratama321@gmail.com
 // @schemes https
-// @BasePath /api/v1/user
+// @BasePath /api/v1/
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization

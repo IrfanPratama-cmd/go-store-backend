@@ -12,6 +12,7 @@ type Product struct {
 
 type ProductAPI struct {
 	ProductName string     `json:"product_name,omitempty" example:"Samsung"  validate:"required"`
+	Sku         *string    `json:"sku,omitempty" example:"PR6900000007" gorm:"type:varchar(191)" `
 	Description string     `json:"description,omitempty" example:"Samsung Desc"  validate:"required"`
 	Quantity    int        `json:"quantity,omitempty" example:"10" `
 	Price       float64    `json:"price,omitempty" example:"10000" `
